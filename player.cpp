@@ -2,6 +2,14 @@
 
 #include "player.h"
 
+Player::Player(){
+  money = 1000;
+  wager = 0;
+  isHuman = false;
+  isPlaying = true;
+  name = "John Doe";
+}
+
 // constructor
 Player::Player(int startMoney, bool humanity, string userID)
 {

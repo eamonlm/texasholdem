@@ -28,4 +28,4 @@ class Table {
     int turnCount;
     int minBlind;
     int pot;
-}x
+};

@@ -16,6 +16,7 @@ struct Card{
 class Player{
  public:
   // constructor
+  Player();
   Player(int, bool, string);
   // destructor
   ~Player();
