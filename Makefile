@@ -1,13 +1,17 @@
-#Makefile for the Texas Hold Em program
+CMP = g++ -std=c++11
+CLASS = table
+MAIN = holdem
+EXEC = holdem
 
-runHoldEm: holdem.o table.o player.o
-	g++ -c -std=c++11 holdem.o table.o player.o -o runHoldEm
+$(EXEC): $(CLASS).o $(MAIN).o
+	$(CMP) $(CLASS).o $(MAIN).o -o $(EXEC)
 
-holdEm.o: holdme.cpp
-	g++ -c -std=c++11 holdem.cpp -o holdem.o
+$(CLASS).o: $(CLASS).cpp $(CLASS).h
+	$(CMP) -c $(CLASS).cpp -o $(CLASS).o
 
-table.o: table.cpp table.h
-	g++ -c -std=c++11 table.cpp -o table.o
+$(MAIN).o: $(MAIN).cpp $(CLASS).h
+	$(CMP) -c $(MAIN).cpp -o $(MAIN).o
 
-player.o: player.cpp player.h
-	g++ -c -std=c++11 player.cpp -o player.o
+clean:
+	rm *.o
+	rm $(EXEC)

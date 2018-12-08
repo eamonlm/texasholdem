@@ -1,15 +1,17 @@
 // player.h
 
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unistd.h>
+#include <cstdlib>
+#include <iomanip>
+using namespace std;
+
 struct Card{
   int value;
   char suit;
 };
-
-#define PREFLOP 1
-#define FLOP 2
-#define TURN 3
-#define RIVER 4
-#define POSTRIVER 5
 
 class Player{
  public:
@@ -29,21 +31,21 @@ class Player{
   void setCard(int, char, int);
   void setMoney(int);
   void setWager(int);
-  void setHumanity(bool)
+  void setHumanity(bool);
   void setPlayStatus(bool);
   void setName(string);
   // betting functions
-  void fold(); 
+  void fold();
   void check();
   void call(int);
   void raise(int, int);
   void allIn();
  private:
   // instance variables
-  vector<Card> hand;
   int money;
+  vector<Card> hand;
   int wager;
   bool isHuman;
   bool isPlaying;
   string name;
-}
+};

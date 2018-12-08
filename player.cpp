@@ -1,11 +1,10 @@
 // player.cpp
 
 #include "player.h"
-#include <iostream>
-using namespace std;
 
 // constructor
-Player:: Player(int startMoney, bool humanity, string userID){
+Player::Player(int startMoney, bool humanity, string userID)
+{
   money = startMoney;
   wager = 0;
   isHuman = humanity;
@@ -14,11 +13,12 @@ Player:: Player(int startMoney, bool humanity, string userID){
 }
 
 // destructor
-Player:: ~Player(){
+Player::~Player(){
+
 }
 
-// get method that returns specific card from a hand 
-Card Player::getCard(int index, Card card){
+// get method that returns specific card from a hand
+Card Player::getCard(int index){
   return hand[index];
 }
 
@@ -59,38 +59,38 @@ void Player::setCard(int index, char newSuit, int val){
 }
 
 // set method that changes money
-void setMoney(int newMoney){
+void Player::setMoney(int newMoney){
   money = newMoney;
 }
 
 // set method that changes wager
-void setWager(int bet){
+void Player::setWager(int bet){
   wager = bet;
 }
 
 // set method that changes if player is human or not
-void setHumanity(bool humanStatus){
+void Player::setHumanity(bool humanStatus){
   isHuman = humanStatus;
 }
 
-// set method that 
-void setPlayStatus(bool playStatus){
+// set method that
+void Player::setPlayStatus(bool playStatus){
   isPlaying = playStatus;
 }
 
-void setName(String newName){
+void Player::setName(string newName){
   name = newName;
 }
 
-void fold(){
+void Player::fold(){
   isPlaying = false;
 }
 
-void check(){
+void Player::check(){
   isPlaying = true;
 }
 
-void call(int turnBet){
+void Player::call(int turnBet){
   if(turnBet < money){
     int temp = turnBet - wager;
     wager = turnBet;
@@ -101,13 +101,13 @@ void call(int turnBet){
   }
 }
 
-void raise(int bet, int turnBet){
+void Player::raise(int bet, int turnBet){
   if(bet < money && bet >= turnBet){
     wager += bet;
     money -= bet;
   }
   else if(bet == money && bet > turnBet){
-    allin();
+    allIn();
   }
   else{
     cout << "Cannot raise " << bet << " dollars!" << endl;
@@ -119,11 +119,7 @@ void raise(int bet, int turnBet){
   }
 }
 
-void allIn(){
-  bet = money;
+void Player::allIn(){
+  wager += money;
   money = 0;
 }
-
-
-
-
