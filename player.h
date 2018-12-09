@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <cstdlib>
 #include <iomanip>
+// #include <algorithm>
 using namespace std;
 
 struct Card{
@@ -17,35 +18,34 @@ class Player{
  public:
   // constructor
   Player();
-  Player(int, bool, string);
+  Player(bool, string);
   // destructor
-  ~Player();
+  // ~Player();
   // get methods
-  Card getCard(int);
-  vector<Card> getHand();
-  int getMoney();
-  int getWager();
+  // Card getCard(int);
+  // int getMoney();
+  // int getWager();
   bool getHumanity();
   bool getPlayStatus();
   string getName();
   // set methods
-  void setCard(int, char, int);
-  void setMoney(int);
-  void setWager(int);
+  // void setCard(int, char, int);
+  // void setMoney(int);
+  // void setWager(int);
   void setHumanity(bool);
   void setPlayStatus(bool);
   void setName(string);
-  // betting functions
-  void fold();
-  void check();
-  void call(int);
-  void raise(int, int);
-  void allIn();
+  // // betting functions
+  // void fold();
+  // void check();
+  // void call(int);
+  // void raise(int, int);
+  // void allIn();
  private:
   // instance variables
-  int money;
-  vector<Card> hand;
-  int wager;
+  // int money;
+  // vector<Card> hand;
+  // int wager;
   bool isHuman;
   bool isPlaying;
   string name;

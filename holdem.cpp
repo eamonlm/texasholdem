@@ -1,9 +1,12 @@
 #include "table.h"
 
 int main(){
-  Player playerAI(1000, false, "Declan");
-  Player playerHuman(1000, true, "Chad TC");
-  Table tc(5, playerAI, playerHuman);
+  Player playerAI(false, "Declan");
+  Player playerHuman(true, "Chad TC");
+  Table tc(playerAI, playerHuman);
   // tc.play();
+  // tc.display();
+  tc.
+  // cout << "Holla at cha boi" << endl;
   return 0;
 }
