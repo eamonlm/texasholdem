@@ -96,6 +96,8 @@ void Table::reset(){
   deal();
   // resetWager();
   clearCommunityCards();
+  clearHumanCards();
+  clearAICards();
 }
 
 // // table requires players to bet at start of turn
@@ -121,6 +123,14 @@ void Table::addCommunityCard(){
 // clears all cards from middle of table
 void Table::clearCommunityCards(){
   communityCards.clear();
+}
+
+void Table::clearHumanCards(){
+  humanCards.clear();
+}
+
+void Table::clearAICards(){
+  aiCards.clear();
 }
 
 // // gives pot to winner, then resets pot
@@ -170,19 +180,20 @@ void Table::playTurn(){
   cin >> action;
 
   // loops until user enters 0 or 1
-  while(action != 1 && action != 0){
+  while((action != 1 && action != 0) || cin.fail()){
     cout << action << " is not a valid choice!" << endl << endl;
     cout << "Do you think you're going to win?" << endl;
     cout << "0 --- No" << endl;
     cout << "1 --- Yes" << endl;
-    cin.ignore();
+    cin.clear();
+    cin.ignore(256, '\n');
     cin >> action;
   }
 
   bool playerWin;
   // determines if player is correct or not, updates correct appropriately and displays message accordingly
-  playerWin = findPlayerPoints() > findAIPoints();
-  if((action == 1 && playerWin) || (action == 0 && !playerWin)){
+  playerWin = findPlayerPoints() >= findAIPoints();
+  if((action == 1 && playerWin) || (action == 0 && playerWin)){
     correct++;
     cout << "Congratulations you were correct!" << endl;
   }
@@ -190,7 +201,11 @@ void Table::playTurn(){
     correct--;
     cout << "Sorry, you were incorrect." << endl;
   }
- 
+  else{
+    correct++;
+    cout << "Ties go to the player!" << endl;
+  }
+
   // end of turn actions
   turnCount++;
   cout << "Turn: " << turnCount << endl;

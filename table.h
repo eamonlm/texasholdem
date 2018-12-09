@@ -15,6 +15,8 @@ class Table {
     // void betBlinds();
     void addCommunityCard();
     void clearCommunityCards();
+    void clearHumanCards();
+    void clearAICards();
     // void givePot(Player);
     void playTurn();
     void play();
