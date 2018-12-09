@@ -416,7 +416,12 @@ void Table::display(bool givenAnswer){
   cout << "                                                                               |" << endl;
   cout << "                               _______   _______                               |" << endl;
   cout << "                              |       | |       |                              |" << endl;
-  cout << "                              |       | |       |                              |" << endl;
+  cout << "                              |   " << 
+
+
+
+
+  "    | |       |                              |" << endl;
   cout << "                              |       | |       |                              |" << endl;
   cout << "                              |       | |       |                              |" << endl;
   cout << "                              |_______| |_______|                              |" << endl;
