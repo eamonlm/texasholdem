@@ -6,7 +6,7 @@ int main(){
   Table tc(playerAI, playerHuman);
   // tc.play();
   // tc.display();
-  tc.
+  //
   // cout << "Holla at cha boi" << endl;
   return 0;
 }

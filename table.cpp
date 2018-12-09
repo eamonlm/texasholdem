@@ -144,7 +144,7 @@ void Table::playTurn(){
   int player1Hand;
   // final hand value
   int player2Hand;
-  int action;
+  int action = 2;
 
   // resets table, bets, and player hands
   reset();
@@ -155,7 +155,9 @@ void Table::playTurn(){
   cout << "Do you think you're going to win?" << endl;
   cout << "0 --- No" << endl;
   cout << "1 --- Yes" << endl;
-	cin >> action;
+  cin >> action;
+
+  bool doesPlayerWin;
 
   // loops until user enters 0 or 1
   while(action != 1 && action != 0){
@@ -166,8 +168,15 @@ void Table::playTurn(){
   	cin.ignore();
   	cin >> action;
   }
+  
+  playerWin = findPlayerPoints > findAIPoints;
 
-
+  if((action == 1 && playerWin) || (action == 0 && !playerWin)){
+    correct++;
+  }
+  else if ((action == 1 && !playerWin) || (action == 0 && playerWin)){
+    correct--;
+  }
 
   	// if(action == "Check"){
   	//   if(playerHuman.getWager() == playerAI.getWager()){
