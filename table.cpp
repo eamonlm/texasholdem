@@ -111,14 +111,9 @@ void Table::reset(){
 
 // adds card to middle of the table
 void Table::addCommunityCard(){
-  cout << "yes!" << endl;
   Card communityCard;
-  cout << "motherfucker" << endl;
   communityCard = deck[0];
-  cout << "ok!" << endl;
   communityCards.push_back(communityCard);
-  cout << "suit is: " << communityCard.suit << endl;
-  cout << "value is: " << communityCard.value << endl;
   deck.erase(deck.begin());
 }
 
@@ -138,14 +133,6 @@ void Table::playTurn(){
 
   // variables
   Player winner;
-  // bool isTurnOver = 0;
-  // string action;
-  // stage 1 = preflop
-  // stage 2 = flop
-  // stage 3 = turn
-  // stage 4 = river
-  // int stage = 1;
-  // int value;
   // final hand value
   int player1Hand;
   // final hand value
@@ -161,7 +148,7 @@ void Table::playTurn(){
   addCommunityCard();
   addCommunityCard();
 
-  display(0);
+  // display(0);
 
   // prompts player
   cout << "Do you think you're going to win?" << endl;
@@ -170,6 +157,8 @@ void Table::playTurn(){
 	cin >> action;
 
   bool playerWin;
+
+  cout << 
 
   // loops until user enters 0 or 1
   while(action != 1 && action != 0){
@@ -180,137 +169,6 @@ void Table::playTurn(){
   	cin.ignore();
   	cin >> action;
   }
-
-  playerWin = findPlayerPoints() > findAIPoints();
-
-    if((action == 1 && playerWin) || (action == 0 && !playerWin)){
-      correct++;
-    }
-    else if ((action == 1 && !playerWin) || (action == 0 && playerWin)){
-      correct--;
-    }
-
-  	// if(action == "Check"){
-  	//   if(playerHuman.getWager() == playerAI.getWager()){
-    //  	  playerHuman.check();
-    // 	  playerAI.check();
-    // 	  switch(stage){
-    // 	    case 1:
-    //         addCommunityCard();
-    //         addCommunityCard();
-    //         addCommunityCard();
-    //         stage++;
-    //         break;
-    //       case 2:
-    //         addCommunityCard();
-    //         stage++;
-    //         break;
-    //       case 3:
-    //         addCommunityCard();
-    //         stage++;
-    //         break;
-    //       case 4:
-    //         int player1Hand = findWinner(playerHuman);
-    //         int player2Hand = findWinner(playerAI);
-    //         if(player1Hand >= player2Hand){
-    //           winner = playerHuman;
-    //         }
-    //         else {
-    //           winner = playerAI;
-    //         }
-    //         isTurnOver = 1;
-    //         break;
-    // 	  }
-  	//   }
-  	//   else{
-  	//     cout << "Cannot check! Please select a valid action" << endl;
-  	//     cin.ignore();
-  	//     cin >> stage;
-  	//   }
-  	// }
-  // 	if(stage == "Call"){
-  //     if(playerHuman.getWager() < playerAI.getWager()){
-  //       playerHuman.call();
-  //       switch(stage){
-  //   	    case 1:
-  //           addCommunityCard();
-  //           addCommunityCard();
-  //           addCommunityCard();
-  //           stage++;
-  //           break;
-  //         case 2:
-  //           addCommunityCard();
-  //           stage++;
-  //           break;
-  //         case 3:
-  //           addCommunityCard();
-  //           stage++;
-  //           break;
-  //         case 4:
-  //           int player1Hand = findWinner(playerHuman);
-  //           int player2Hand = findWinner(playerAI);
-  //           if(player1Hand >= player2Hand){
-  //             winner = player1Hand;
-  //           }
-  //           else {
-  //             winner = player2Hand;
-  //           }
-  //           isTurnOver = 1;
-  //           break;
-  //   	  }
-  //     }
-  //     else {
-  //       cout << "Cannot check! Please select a valid action" << endl;
-  // 	    cin.ignore();
-  // 	    cin >> stage;
-  //     }
-  // 	}
-  // 	if(stage == "Raise"){
-  //
-  // 	}
-  // 	if(stage == "Fold"){
-  //
-  // 	}
-  // 	if(stage == "All-In"){
-
-  //   }
-  //
-  // }
-
-
-
-
-
-
-
-
-
-
-
-  //
-  //
-  //   }
-  //   if(stage == "Call"){
-  //     if(playerHuman.getWager() < playerAI.getWager() && playerAI.getwager() != 0){
-	// playerHuman.call(playerAI.getWager() - playerHuman.getWager());
-	// break;
-  //     }
-  //     else(){
-	//   cout << "Cannot call! Please select a valid action" << endl;
-	//   cin.ignore();
-	//   cin >> stage;
-	// }
-  //   }
-  //   if(stage == "Raise"){
-  //     cout << "Please enter the amount you would like to raise the current bet by: ";
-  //     cin >> value;
-  //     playerHuman.raise(value, playerAI.getWager());
-  //   }
-  // }
-
-
-
-
 
 
 
@@ -392,6 +250,9 @@ int Table::findAIPoints(){
 // if isTurnOver is false, AI cards appear empty
 // else, all cards are displayed
 void Table::display(bool givenAnswer){
+  // gets variables
+
+
   // clears
   system("clear");
 
@@ -416,12 +277,9 @@ void Table::display(bool givenAnswer){
   cout << "                                                                               |" << endl;
   cout << "                               _______   _______                               |" << endl;
   cout << "                              |       | |       |                              |" << endl;
-  cout << "                              |   " << 
-
-
-
-
-  "    | |       |                              |" << endl;
+  // cout << "                              |   " << humanCards[1].suit;
+  // cout << "   | |   " << humanCards[1].value;
+  cout << "   |                              |" << endl;
   cout << "                              |       | |       |                              |" << endl;
   cout << "                              |       | |       |                              |" << endl;
   cout << "                              |_______| |_______|                              |" << endl;
