@@ -111,8 +111,14 @@ void Table::reset(){
 
 // adds card to middle of the table
 void Table::addCommunityCard(){
-  Card communityCard = deck[0];
+  cout << "yes!" << endl;
+  Card communityCard;
+  cout << "motherfucker" << endl;
+  communityCard = deck[0];
+  cout << "ok!" << endl;
   communityCards.push_back(communityCard);
+  cout << "suit is: " << communityCard.suit << endl;
+  cout << "value is: " << communityCard.value << endl;
   deck.erase(deck.begin());
 }
 
@@ -149,7 +155,13 @@ void Table::playTurn(){
   // resets table, bets, and player hands
   reset();
 
-  display();
+  addCommunityCard();
+  addCommunityCard();
+  addCommunityCard();
+  addCommunityCard();
+  addCommunityCard();
+
+  display(0);
 
   // prompts player
   cout << "Do you think you're going to win?" << endl;
@@ -157,9 +169,11 @@ void Table::playTurn(){
   cout << "1 --- Yes" << endl;
 	cin >> action;
 
+  bool playerWin;
+
   // loops until user enters 0 or 1
   while(action != 1 && action != 0){
-    cout << action << " is not a valid choice!" << endl;
+    cout << action << " is not a valid choice!" << endl << endl;
     cout << "Do you think you're going to win?" << endl;
     cout << "0 --- No" << endl;
     cout << "1 --- Yes" << endl;
@@ -167,7 +181,14 @@ void Table::playTurn(){
   	cin >> action;
   }
 
+  playerWin = findPlayerPoints() > findAIPoints();
 
+    if((action == 1 && playerWin) || (action == 0 && !playerWin)){
+      correct++;
+    }
+    else if ((action == 1 && !playerWin) || (action == 0 && playerWin)){
+      correct--;
+    }
 
   	// if(action == "Check"){
   	//   if(playerHuman.getWager() == playerAI.getWager()){
@@ -367,8 +388,10 @@ int Table::findAIPoints(){
   return 0;
 }
 
-
-void Table::display(){
+// display shows 2 cards for each player, 5 flipped cards in the center, and a deck
+// if isTurnOver is false, AI cards appear empty
+// else, all cards are displayed
+void Table::display(bool givenAnswer){
   // clears
   system("clear");
 
@@ -382,12 +405,12 @@ void Table::display(){
   cout << "                                                                               |" << endl;
   cout << "        _______________________________________________________________        |" << endl;
   cout << "       /                                                               \\       |" << endl;
-  cout << "      /                                                                 \\      |" << endl;
-  cout << "     /                                                                   \\     |" << endl;
-  cout << "    |                                                                     |    |" << endl;
-  cout << "    |                                                                     |    |" << endl;
-  cout << "    |                                                                     |    |" << endl;
-  cout << "     \\                                                                   /     |" << endl;
+  cout << "      /    _______   _______   _______   _______   _______   _______    \\      |" << endl;
+  cout << "     /    |       | |       | |       | |       | |       | |       |    \\     |" << endl;
+  cout << "    |     |       | |       | |       | |       | |       | |       |     |    |" << endl;
+  cout << "    |     |       | |       | |       | |       | |       | |       |     |    |" << endl;
+  cout << "    |     |       | |       | |       | |       | |       | |       |     |    |" << endl;
+  cout << "     \\    |_______| |_______| |_______| |_______| |_______| |_______|    /     |" << endl;
   cout << "      \\                                                                 /      |" << endl;
   cout << "       \\_______________________________________________________________/       |" << endl;
   cout << "                                                                               |" << endl;

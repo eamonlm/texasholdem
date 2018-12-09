@@ -21,7 +21,7 @@ class Table {
     // void doAction(Player);
     int findPlayerPoints();
     int findAIPoints();
-    void display();
+    void display(bool);
   private:
     vector<Card> deck;
     vector<Card> communityCards;
