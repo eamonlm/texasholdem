@@ -4,8 +4,6 @@
 #include "table.h"
 
 Table::Table(Player player1, Player player2){
-  // setting minimum blind
-  // minBlind = blind;
 
   // initializing players
   playerHuman = player1;
@@ -17,6 +15,7 @@ Table::Table(Player player1, Player player2){
   cout << "Table initialized!" << endl;
 }
 
+// deconstructor
 Table::~Table(){
 }
 
@@ -83,12 +82,6 @@ void Table::deal(){
 
 }
 
-// // resets amount players have bet to zero
-// void Table::resetWager(){
-//   playerHuman.setWager(0);
-//   playerAI.setWager(0);
-// }
-
 // resets table, bets, and player hands
 void Table::reset(){
   generateNewDeck();
@@ -99,18 +92,6 @@ void Table::reset(){
   clearHumanCards();
   clearAICards();
 }
-
-// // table requires players to bet at start of turn
-// void Table::betBlinds(){
-//   // big and small bets for players alternate with turn
-//   if(turnCount % 2 == 0){
-//     playerAI.raise(minBlind, playerHuman.getWager());
-//     playerHuman.raise(2*minBlind, playerAI.getWager());
-//   } else {
-//     playerHuman.raise(minBlind, playerAI.getWager());
-//     playerAI.raise(2*minBlind, playerHuman.getWager());
-//   }
-// }
 
 // adds card to middle of the table
 void Table::addCommunityCard(){
@@ -125,19 +106,15 @@ void Table::clearCommunityCards(){
   communityCards.clear();
 }
 
+// empties human cards
 void Table::clearHumanCards(){
   humanCards.clear();
 }
 
+// empties AI cards
 void Table::clearAICards(){
   aiCards.clear();
 }
-
-// // gives pot to winner, then resets pot
-// void Table::givePot(Player winner){
-//   winner.setWager(winner.getWager() + pot);
-//   pot = 0;
-// }
 
 // cycles through full turn until someone gets pot
 void Table::playTurn(){
@@ -153,26 +130,16 @@ void Table::playTurn(){
   // resets table, bets, and player hands
   reset();
 
+  // puts out 5 community cards
   addCommunityCard();
   addCommunityCard();
   addCommunityCard();
   addCommunityCard();
   addCommunityCard();
 
+  // displays cards
+  display();
 
-  // shows community cards
-  cout << "The community cards are: " << endl;
-  
-  for(int i = 0; i < communityCards.size(); i++){
-    cout << communityCards[i].value << " of " << communityCards[i].suit << endl;    
-  }
-
-  // shows your cards
-  cout << "Your cards are: " << endl;
-  cout << humanCards[0].value << " of " << humanCards[0].suit << endl;
-  cout << humanCards[1].value << " of " << humanCards[1].suit << endl;
-  
-  
   // prompts player
   cout << "Do you think you're going to win?" << endl;
   cout << "0 --- No" << endl;
@@ -189,6 +156,12 @@ void Table::playTurn(){
     cin.ignore(256, '\n');
     cin >> action;
   }
+
+  // shows ai cards
+  cout << endl;
+  cout << "The AI's cards are: " << endl;
+  cout << aiCards[0].value << " of " << aiCards[0].suit << endl;
+  cout << aiCards[1].value << " of " << aiCards[1].suit << endl << endl;
 
   bool playerWin;
   // determines if player is correct or not, updates correct appropriately and displays message accordingly
@@ -210,34 +183,17 @@ void Table::playTurn(){
   turnCount++;
   cout << "Turn: " << turnCount << endl;
   cout << "Predictions correct: " << correct << endl;
+
+  // waits a little bit before starting next round
+  usleep(3000000);
 }
 
+// loops through play turn infinitly
 void Table::play(){
   while(1){
     playTurn();
   }
 }
-
-// // if player1 is human, takes input
-// // if player1 is AI, takes random input
-// void doHumanAction(Player human, Player ai){
-//   // prompts
-//   cout << "Enter a number to take an action." << endl;
-// 	cout << " '1 --- Check', '2 --- Call', '3 --- Raise', '4 --- Fold', '5 --- All-In'" << endl;
-// 	cin.ignore();
-// 	cin >> action;
-//
-//   // switch case for action
-//   switch(action){
-//   case 1:
-//     if(human.getWager() < ai.getWager())
-//   case 2:
-//   case 3:
-//   case 4:
-//   case 5:
-//
-//   }
-// }
 
 // returns player points
 int Table::findPlayerPoints(){
@@ -259,6 +215,7 @@ int Table::findPlayerPoints(){
   }
 }
 
+// returns AI points
 int Table::findAIPoints(){
   int numByValue[13] = { 0 };
   int value = 0;
@@ -279,43 +236,57 @@ int Table::findAIPoints(){
   return 0;
 }
 
-// display shows 2 cards for each player, 5 flipped cards in the center, and a deck
-// if isTurnOver is false, AI cards appear empty
-// else, all cards are displayed
-void Table::display(bool givenAnswer){
-  // gets variables
-
-
+// display shows 2 cards for human, 5 flipped cards in the center, and a deck
+void Table::display(){
   // clears
   system("clear");
 
-  cout << "                                                                               |" << endl;
-  cout << "                               _______   _______                               |" << endl;
-  cout << "                              |       | |       |                              |" << endl;
-  cout << "                              |       | |       |                              |" << endl;
-  cout << "                              |       | |       |                              |" << endl;
-  cout << "                              |       | |       |                              |" << endl;
-  cout << "                              |_______| |_______|                              |" << endl;
-  cout << "                                                                               |" << endl;
-  cout << "        _______________________________________________________________        |" << endl;
-  cout << "       /                                                               \\       |" << endl;
-  cout << "      /    _______   _______   _______   _______   _______   _______    \\      |" << endl;
-  cout << "     /    |       | |       | |       | |       | |       | |       |    \\     |" << endl;
-  cout << "    |     |       | |       | |       | |       | |       | |       |     |    |" << endl;
-  cout << "    |     |       | |       | |       | |       | |       | |       |     |    |" << endl;
-  cout << "    |     |       | |       | |       | |       | |       | |       |     |    |" << endl;
-  cout << "     \\    |_______| |_______| |_______| |_______| |_______| |_______|    /     |" << endl;
-  cout << "      \\                                                                 /      |" << endl;
-  cout << "       \\_______________________________________________________________/       |" << endl;
-  cout << "                                                                               |" << endl;
-  cout << "                               _______   _______                               |" << endl;
-  cout << "                              |       | |       |                              |" << endl;
-  // cout << "                              |   " << humanCards[1].suit;
-  // cout << "   | |   " << humanCards[1].value;
-  cout << "   |                              |" << endl;
-  cout << "                              |       | |       |                              |" << endl;
-  cout << "                              |       | |       |                              |" << endl;
-  cout << "                              |_______| |_______|                              |" << endl;
-  cout << "                                                                               |" << endl;
-  cout << "                                                                               |" << endl;
+  // opponent's hand display
+  cout << "                                                                                   |" << endl;
+  cout << "                               _______   _______                                   |" << endl;
+  cout << "                              |       | |       |                                  |" << endl;
+  cout << "                              |       | |       |                                  |" << endl;
+  cout << "                              |       | |       |";
+  cout << setw(10) << playerAI.getName() << "'s cards (AI)           |            LEGEND" << endl;
+  cout << "                              |       | |       |                                  |" << endl;
+  cout << "                              |_______| |_______|                                  |    CARDS            SUITS" << endl;
+  cout << "                                                                                   |    1: Ace           s: Spades" << endl;
+  // begin board display
+  cout << "        _______________________________________________________________            |    2: 2             c: Clubs" << endl;
+  cout << "       /                                                               \\           |    3: 3             d: Diamonds" << endl;
+  cout << "      /    _______   _______   _______   _______   _______   _______    \\          |    4: 4             h: Hearts" << endl;
+  cout << "     /    |       | |       | |       | |       | |       | |       |    \\         |    5: 5" << endl;
+  cout << "    |     |    ";
+  cout << "   | |" << setw(4) << communityCards[0].value;
+  cout << "   | |" << setw(4) << communityCards[1].value;
+  cout << "   | |" << setw(4) << communityCards[2].value;
+  cout << "   | |" << setw(4) << communityCards[3].value;
+  cout << "   | |" << setw(4) << communityCards[4].value;
+  cout << "   |     |        |    6: 6" << endl;
+  cout << "    |     | DECK  | |       | |       | |       | |       | |       |     |        |    7: 7" << endl;
+  cout << "    |     |    ";
+  cout << "   | |" << setw(4) << communityCards[0].suit;
+  cout << "   | |" << setw(4) << communityCards[1].suit;
+  cout << "   | |" << setw(4) << communityCards[2].suit;
+  cout << "   | |" << setw(4) << communityCards[3].suit;
+  cout << "   | |" << setw(4) << communityCards[4].suit;
+  cout << "   |     |        |    8: 8" << endl;
+  cout << "     \\    |_______| |_______| |_______| |_______| |_______| |_______|    /         |    9: 9" << endl;
+  cout << "      \\                                                                 /          |    10: 10" << endl;
+  cout << "       \\_______________________________________________________________/           |    11: Jack" << endl;
+  cout << "                                                                                   |    12: Queen" << endl;
+  // your hand display
+  cout << "                               _______   _______                                   |    13: King" << endl;
+  cout << "                              |       | |       |                                  |" << endl;
+  cout << "                              |" << setw(4) << humanCards[0].value;
+  cout << "   | |" << setw(4) << humanCards[1].value;
+  cout << "   |                                  |" << endl;
+  cout << "                              |       | |       |";
+  cout << setw(10) << playerHuman.getName() << "'s cards (Human?)       |" << endl;
+  cout << "                              |" << setw(4) << humanCards[0].suit;
+  cout << "   | |" << setw(4) << humanCards[1].suit;
+  cout << "   |                                  |" << endl;
+  cout << "                              |_______| |_______|                                  |" << endl;
+  cout << "                                                                                   |" << endl;
+  cout << "                                                                                   |" << endl;
 }
