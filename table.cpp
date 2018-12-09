@@ -50,6 +50,7 @@ void Table::generateNewDeck(){
 void Table::shuffle(){
   int random;
   vector<Card> newDeck;
+  srand(time(NULL));
 
   // randomly chooses a card from existing deck
   // puts in new deck, deletes from old deck
@@ -148,17 +149,25 @@ void Table::playTurn(){
   addCommunityCard();
   addCommunityCard();
 
-  // display(0);
 
+  // shows community cards
+  cout << "The community cards are: " << endl;
+  
+  for(int i = 0; i < communityCards.size(); i++){
+    cout << communityCards[i].value << " of " << communityCards[i].suit << endl;    
+  }
+
+  // shows your cards
+  cout << "Your cards are: " << endl;
+  cout << humanCards[0].value << " of " << humanCards[0].suit << endl;
+  cout << humanCards[1].value << " of " << humanCards[1].suit << endl;
+  
+  
   // prompts player
   cout << "Do you think you're going to win?" << endl;
   cout << "0 --- No" << endl;
   cout << "1 --- Yes" << endl;
-	cin >> action;
-
-  bool playerWin;
-
-  cout << 
+  cin >> action;
 
   // loops until user enters 0 or 1
   while(action != 1 && action != 0){
@@ -166,17 +175,26 @@ void Table::playTurn(){
     cout << "Do you think you're going to win?" << endl;
     cout << "0 --- No" << endl;
     cout << "1 --- Yes" << endl;
-  	cin.ignore();
-  	cin >> action;
+    cin.ignore();
+    cin >> action;
   }
 
-
-
-
+  bool playerWin;
+  // determines if player is correct or not, updates correct appropriately and displays message accordingly
+  playerWin = findPlayerPoints() > findAIPoints();
+  if((action == 1 && playerWin) || (action == 0 && !playerWin)){
+    correct++;
+    cout << "Congratulations you were correct!" << endl;
+  }
+  else if ((action == 1 && !playerWin) || (action == 0 && playerWin)){
+    correct--;
+    cout << "Sorry, you were incorrect." << endl;
+  }
+ 
   // end of turn actions
-  // givePot(winner);
   turnCount++;
-  cout << "turnCount: " << turnCount << endl;
+  cout << "Turn: " << turnCount << endl;
+  cout << "Predictions correct: " << correct << endl;
 }
 
 void Table::play(){
